@@ -1,0 +1,28 @@
+[
+    {
+      "model": "registro_inmuebles.usuario",
+      "pk": 1,
+      "fields": {
+        "nombres": "Juan",
+        "apellidos": "Perez",
+        "rut": "12345678-9",
+        "direccion": "Calle 123",
+        "telefono": "+56912345678",
+        "correo_electronico": "juan@email.com",
+        "tipo_usuario": "arrendatario"
+      }
+    },
+    {
+      "model": "registro_inmuebles.usuario",
+      "pk": 2,
+      "fields": {
+        "nombres": "Maria",
+        "apellidos": "Gonzalez",
+        "rut": "87654321-0",
+        "direccion": "Avenida 456",
+        "telefono": "+56998765432",
+        "correo_electronico": "maria@email.com",
+        "tipo_usuario": "arrendador"
+      }
+    }
+  ]
