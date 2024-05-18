@@ -1,0 +1,8 @@
+Comuna: Arica
+  Nombre: Casa Acogedora
+  Descripción: Una casa acogedora en el campo.
+
+Comuna: Camarones
+  Nombre: Departamento Moderno
+  Descripción: Un departamento moderno en el centro de la ciudad.
+
