@@ -1,0 +1,114 @@
+[
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 1,
+        "fields": {
+            "nombre": "Arica y Parinacota"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 2,
+        "fields": {
+            "nombre": "Tarapacá"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 3,
+        "fields": {
+            "nombre": "Antofagasta"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 4,
+        "fields": {
+            "nombre": "Atacama"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 5,
+        "fields": {
+            "nombre": "Coquimbo"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 6,
+        "fields": {
+            "nombre": "Valparaíso"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 7,
+        "fields": {
+            "nombre": "Libertador General Bernardo O'Higgins"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 8,
+        "fields": {
+            "nombre": "Maule"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 9,
+        "fields": {
+            "nombre": "Ñuble"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 10,
+        "fields": {
+            "nombre": "Biobío"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 11,
+        "fields": {
+            "nombre": "La Araucanía"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 12,
+        "fields": {
+            "nombre": "Los Ríos"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 13,
+        "fields": {
+            "nombre": "Los Lagos"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 14,
+        "fields": {
+            "nombre": "Aysén del General Carlos Ibáñez del Campo"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 15,
+        "fields": {
+            "nombre": "Magallanes y de la Antártica Chilena"
+        }
+    },
+    {
+        "model": "registro_inmuebles.Region",
+        "pk": 16,
+        "fields": {
+            "nombre": "Metropolitana de Santiago"
+        }
+    }
+]

@@ -28,6 +28,23 @@ class Usuario(models.Model):
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
 
+class Region(models.Model):
+    nombre = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "Reg"
+        verbose_name_plural = "Regiones"
+
+    def __str__(self):
+        return self.nombre
+
+class Comuna(models.Model):
+    nombre = models.CharField(max_length=100)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
+
 class Inmueble(models.Model):
     nombre = models.CharField(max_length=255)
     descripcion = models.TextField()
@@ -37,7 +54,7 @@ class Inmueble(models.Model):
     cantidad_habitaciones = models.IntegerField()
     cantidad_banos = models.IntegerField()
     direccion = models.CharField(max_length=255)
-    comuna = models.CharField(max_length=100)
+    comuna = models.ForeignKey(Comuna, on_delete=models.CASCADE)
     
     CASA = 'casa'
     DEPARTAMENTO = 'departamento'
@@ -68,3 +85,4 @@ class SolicitudArriendo(models.Model):
 
     def __str__(self):
         return f"Solicitud de {self.arrendatario} para {self.inmueble}"
+    
