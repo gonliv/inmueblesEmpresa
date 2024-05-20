@@ -1,0 +1,8 @@
+{% extends "static_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Has cerrado sesión con éxito</h2>
+    <p><a href="{% url 'login' %}">Iniciar sesión de nuevo</a></p>
+</div>
+{% endblock %}

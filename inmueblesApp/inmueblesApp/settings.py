@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,12 @@ SECRET_KEY = 'django-insecure-e4u6c2hd8^%!i%*tozv%^@(+_)c+4p2pg&xzo*g4zp*k0&y5_1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
+
+# LOGIN LOGOUT REDIRECT URLS
+
+LOGIN_REDIRECT_URL = '/welcome/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Application definition
@@ -55,7 +61,7 @@ ROOT_URLCONF = 'inmueblesApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

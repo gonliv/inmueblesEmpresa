@@ -1,9 +1,7 @@
 from django.db import models
+import uuid
 
 # Create your models here.
-
-from django.db import models
-
 class Usuario(models.Model):
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
@@ -85,4 +83,13 @@ class SolicitudArriendo(models.Model):
 
     def __str__(self):
         return f"Solicitud de {self.arrendatario} para {self.inmueble}"
+    
+class ContactForm(models.Model):
+    contact_form_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    customer_email = models.EmailField()
+    customer_name = models.CharField(max_length=64)
+    message = models.TextField()
+    
+    def __str__(self):
+        return f"{self.customer_name} - {self.customer_email}"  
     
