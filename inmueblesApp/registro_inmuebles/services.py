@@ -72,7 +72,6 @@ def aceptar_arrendatario(propiedad_id, solicitud_id):
         solicitud = SolicitudArriendo.objects.get(id=solicitud_id, inmueble_id=propiedad_id)
         solicitud.estado = 'aceptado'
         solicitud.save()
-        # Aquí puedes agregar lógica adicional para notificar al arrendatario, actualizar el estado del inmueble, etc.
         return solicitud
     except SolicitudArriendo.DoesNotExist:
         raise ObjectDoesNotExist(f"Solicitud con id {solicitud_id} para inmueble con id {propiedad_id} no encontrada")

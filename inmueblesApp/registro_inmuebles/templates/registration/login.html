@@ -44,6 +44,10 @@
             <input type="hidden" name="next" value="{% url 'welcome' %}">
             <button type="submit" class="btn btn-primary mt-3">Iniciar sesión</button>
           </form>
+          <!-- Agregar enlace para registrarse -->
+          <div class="mt-3">
+            ¿No tienes cuenta? <a href="{% url 'registro' %}">Regístrate aquí</a>
+          </div>
         </div>
       </div>
       <div class="text-center mt-5">
