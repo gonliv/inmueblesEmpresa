@@ -1,0 +1,23 @@
+{% extends 'static_base.html' %}
+{% load static %}
+{% block 'header' %}
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4 text-center">Perfil de Usuario</h2>
+            {% if mensaje %}
+                <div class="alert alert-success" role="alert">
+                    {{ mensaje }}
+                </div>
+            {% endif %}
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Actualizar Datos</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

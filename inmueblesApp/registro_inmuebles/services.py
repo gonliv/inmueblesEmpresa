@@ -2,13 +2,18 @@ from django.db import transaction
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Usuario, Inmueble, SolicitudArriendo
 
-def registrar_usuario(datos_usuario):
-    try:
-        nuevo_usuario = Usuario.objects.create(**datos_usuario)
-        return nuevo_usuario
-    except Exception as e:
-        # Manejo de errores y logging si es necesario
-        raise e
+def crear_usuario(email, password, nombres, apellidos, rut, direccion, telefono, tipo_usuario):
+    usuario = Usuario.objects.create_user(
+        email=email,
+        password=password,
+        nombres=nombres,
+        apellidos=apellidos,
+        rut=rut,
+        direccion=direccion,
+        telefono=telefono,
+        tipo_usuario=tipo_usuario
+    )
+    return usuario
 
 def actualizar_usuario(usuario_id, datos_actualizados):
     try:

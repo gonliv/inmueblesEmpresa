@@ -10,6 +10,10 @@ from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
 from .models import ContactForm
+from .services import crear_usuario
+from .forms import RegistroForm
+from .forms import ModificarUsuarioForm
+
 
 # Create your views here.
 def index(request):
@@ -17,9 +21,6 @@ def index(request):
 
 def about(request):
     return render(request, 'about.html', {})
-
-def welcome(request):
-    return render(request, 'welcome.html', {})
 
 def contact(request):
     if request.method == 'POST':
@@ -39,66 +40,72 @@ def success(request):
     return render(request, 'success.html', {})
 
 class LoginRequiredMixin(View):
-
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
-    
+
 class Welcome(LoginRequiredMixin, TemplateView):
     template_name = "welcome.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+@login_required
+def welcome(request):
+    return render(request, 'welcome.html', {'user': request.user})  
 
 def registro(request):
     if request.method == 'POST':
         form = RegistroForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save(commit=False)
+            user.email = form.cleaned_data['correo_electronico']
+            user.set_password(form.cleaned_data['password1'])
+            user.save()
+            login(request, user)
+            return redirect('welcome')
     else:
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-@login_required
-def profile(request):
+def mi_vista(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        if u_form.is_valid():
-            u_form.save()
-            return redirect('profile')
+        # Obtener datos del formulario
+        email = request.POST['email']
+        password = request.POST['password']
+        nombres = request.POST['nombres']
+        apellidos = request.POST['apellidos']
+        rut = request.POST['rut']
+        direccion = request.POST['direccion']
+        telefono = request.POST['telefono']
+        tipo_usuario = request.POST['tipo_usuario']
+
+        # Crear el usuario utilizando la función de servicios
+        nuevo_usuario = crear_usuario(email, password, nombres, apellidos, rut, direccion, telefono, tipo_usuario)
+
+def vista_registro(request):
+    if request.method == 'POST':
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            login(request, user)
+            # Redirigir a alguna página de éxito
+            return redirect('success')
     else:
-        u_form = UserUpdateForm(instance=request.user)
+        form = RegistroForm()
+    return render(request, 'registro.html', {'form': form})
 
-    context = {
-        'u_form': u_form
-    }
-
-    return render(request, 'profile.html', context)
-
-def register(request):
+def perfil_usuario(request):
+    usuario = request.user
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = ModificarUsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return redirect('index')
+            return render(request, 'profile.html', {'form': form, 'mensaje': 'Datos actualizados correctamente'})
     else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
-
-def login_view(request):
-    return render(request, 'login.html')
+        form = ModificarUsuarioForm(instance=usuario)
+    return render(request, 'profile.html', {'form': form})

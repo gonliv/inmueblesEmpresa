@@ -8,14 +8,14 @@
   <div class="row justify-content-center">
     <div class="col-md-8 text-center">
       {% if user.is_authenticated %}
-      <h1>Bienvenido a Inmobiliaria Plus</h1>
+        <h1>Bienvenido a Inmobiliaria Plus, {{ user.nombres }}</h1>
       {% else %}
-      <h1>Bienvenidos a Inmobiliaria Plus</h1>
+        <h1>Bienvenidos a Inmobiliaria Plus</h1>
       {% endif %}
       <p class="lead mt-3">¡Bienvenido a Inmobiliaria Plus! Explora nuestro amplio mundo de propiedades y hogares, cuidadosamente seleccionados y ofrecidos con dedicación en la vibrante ciudad de Santiago.</p>
       <img src="{% static 'img/not-imb.jpg' %}" alt="Descripción de la imagen" class="img-fluid mt-4 mb-4">
       <p class="mb-5">Sumérgete en la experiencia Inmobiliaria Plus, donde cada paso te lleva a un viaje de descubrimiento y comodidad en el mundo de los bienes raíces en Santiago.</p>
-      <a href="{% url 'index' %}" class="btn btn-primary mb-5">Servicios</a>
+      <a href="{% url 'profile' %}" class="btn btn-primary mb-5">Perfil</a>
     </div>
   </div>
 </div>

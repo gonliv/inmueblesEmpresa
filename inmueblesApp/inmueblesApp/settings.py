@@ -33,7 +33,6 @@ ALLOWED_HOSTS = ["*"]
 LOGIN_REDIRECT_URL = '/welcome/'
 LOGOUT_REDIRECT_URL = '/'
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

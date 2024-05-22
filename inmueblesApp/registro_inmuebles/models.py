@@ -1,9 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 import uuid
 
 # Create your models here.
-class Usuario(AbstractUser):
+
+class UsuarioManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('El campo de correo electrónico debe estar configurado')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        if password:
+            user.set_password(password)
+        user.save(using=self._db)
+        return user
+    
+class Usuario(AbstractBaseUser):
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     rut = models.CharField(max_length=12, unique=True)
@@ -24,18 +36,10 @@ class Usuario(AbstractUser):
         default=ARRENDATARIO
     )
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='usuarios',
-        blank=True,
-        help_text='Los grupos a los que pertenece el usuario.'
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='usuarios',
-        blank=True,
-        help_text='Permisos específicos para este usuario.'
-    )
+    objects = UsuarioManager()
+
+    USERNAME_FIELD = 'correo_electronico'
+    REQUIRED_FIELDS = ['nombres', 'apellidos', 'rut', 'direccion', 'telefono'] 
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
