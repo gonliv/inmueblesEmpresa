@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView
-from registro_inmuebles.views import index, about, Welcome, contact, success, registro, perfil_usuario
+from registro_inmuebles.views import index, about, Welcome, contact, success, registro, perfil_usuario, modificar_usuario
 from django.urls import include
 
 
@@ -39,5 +39,7 @@ urlpatterns = [
     path('reset/done/', include('django.contrib.auth.urls'), name='password_reset_complete'),
     path('registro/', registro, name='registro'),
     path('profile/', perfil_usuario, name='profile'),
+    path('modificar_usuario/', modificar_usuario, name='modificar_usuario'),
+
 
 ]

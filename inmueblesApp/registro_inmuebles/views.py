@@ -1,6 +1,6 @@
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
-from .models import ContactForm
+from .models import Usuario, ContactForm
 from .services import crear_usuario
 from .forms import RegistroForm
 from .forms import ModificarUsuarioForm
@@ -58,16 +58,16 @@ def welcome(request):
 
 def registro(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.email = form.cleaned_data['correo_electronico']
-            user.set_password(form.cleaned_data['password1'])
-            user.save()
+            # Crear el usuario
+            email = form.cleaned_data['username']  # El correo se toma como username
+            password = form.cleaned_data['password']
+            user = Usuario.objects.create_user(email=email, password=password)
             login(request, user)
             return redirect('welcome')
     else:
-        form = RegistroForm()
+        form = AuthenticationForm()
     return render(request, 'registro.html', {'form': form})
 
 def mi_vista(request):
@@ -99,13 +99,28 @@ def vista_registro(request):
         form = RegistroForm()
     return render(request, 'registro.html', {'form': form})
 
+@login_required
 def perfil_usuario(request):
     usuario = request.user
     if request.method == 'POST':
         form = ModificarUsuarioForm(request.POST, instance=usuario)
         if form.is_valid():
             form.save()
-            return render(request, 'profile.html', {'form': form, 'mensaje': 'Datos actualizados correctamente'})
+            messages.success(request, '¡Tus datos se han actualizado correctamente!')
+            return redirect('profile')
     else:
         form = ModificarUsuarioForm(instance=usuario)
     return render(request, 'profile.html', {'form': form})
+
+@login_required
+def modificar_usuario(request):
+    usuario = request.user
+    if request.method == 'POST':
+        form = ModificarUsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tus datos han sido actualizados correctamente.')
+            return redirect('profile')
+    else:
+        form = ModificarUsuarioForm(instance=usuario)
+    return render(request, 'modificar_usuario.html', {'form': form})

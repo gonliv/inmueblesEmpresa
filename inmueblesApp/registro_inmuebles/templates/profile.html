@@ -1,22 +1,24 @@
 {% extends 'static_base.html' %}
-{% load static %}
 {% block 'header' %}
 {% endblock %}
-{% block content %}
+{% block 'content' %}
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h2 class="mb-4 text-center">Perfil de Usuario</h2>
-            {% if mensaje %}
-                <div class="alert alert-success" role="alert">
-                    {{ mensaje }}
-                </div>
-            {% endif %}
-            <form method="post" class="needs-validation" novalidate>
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary w-100 mt-3">Actualizar Datos</button>
-            </form>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>Mi Perfil</h2>
+            <hr>
+            <h3>Datos Personales</h3>
+            <ul>
+                <li><strong>Nombre:</strong> {{ user.nombres }}</li>
+                <li><strong>Apellidos:</strong> {{ user.apellidos }}</li>
+                <li><strong>RUT:</strong> {{ user.rut }}</li>
+                <li><strong>Dirección:</strong> {{ user.direccion }}</li>
+                <li><strong>Teléfono:</strong> {{ user.telefono }}</li>
+                <li><strong>Correo Electrónico:</strong> {{ user.correo_electronico }}</li>
+                <li><strong>Tipo de Usuario:</strong> {{ user.get_tipo_usuario_display }}</li>
+            </ul>
+            <hr>
+            <a href="{% url 'modificar_usuario' %}" class="btn btn-primary mb-5">Modificar Datos</a>
         </div>
     </div>
 </div>
