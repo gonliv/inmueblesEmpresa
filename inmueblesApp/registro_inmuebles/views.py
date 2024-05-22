@@ -60,8 +60,7 @@ def registro(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            # Crear el usuario
-            email = form.cleaned_data['username']  # El correo se toma como username
+            email = form.cleaned_data['username']  
             password = form.cleaned_data['password']
             user = Usuario.objects.create_user(email=email, password=password)
             login(request, user)
@@ -72,7 +71,6 @@ def registro(request):
 
 def mi_vista(request):
     if request.method == 'POST':
-        # Obtener datos del formulario
         email = request.POST['email']
         password = request.POST['password']
         nombres = request.POST['nombres']
@@ -82,7 +80,6 @@ def mi_vista(request):
         telefono = request.POST['telefono']
         tipo_usuario = request.POST['tipo_usuario']
 
-        # Crear el usuario utilizando la función de servicios
         nuevo_usuario = crear_usuario(email, password, nombres, apellidos, rut, direccion, telefono, tipo_usuario)
 
 def vista_registro(request):
@@ -93,7 +90,6 @@ def vista_registro(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             login(request, user)
-            # Redirigir a alguna página de éxito
             return redirect('success')
     else:
         form = RegistroForm()
