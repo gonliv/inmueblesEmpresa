@@ -2,17 +2,15 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ContactFormForm, RegistroForm
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import TemplateView
-from .models import Usuario, ContactForm
+from .models import Usuario, ContactForm, Inmueble
 from .services import crear_usuario
-from .forms import RegistroForm
-from .forms import ModificarUsuarioForm
+from .forms import RegistroForm, ModificarUsuarioForm, ContactFormForm, RegistroForm, InmuebleForm
+
 
 
 # Create your views here.
@@ -120,3 +118,44 @@ def modificar_usuario(request):
     else:
         form = ModificarUsuarioForm(instance=usuario)
     return render(request, 'modificar_usuario.html', {'form': form})
+
+@login_required
+def agregar_inmueble(request):
+    if request.user.is_arrendador:
+        if request.method == 'POST':
+            form = InmuebleForm(request.POST)
+            if form.is_valid():
+                inmueble = form.save(commit=False)
+                inmueble.propietario = request.user
+                inmueble.save()
+                return redirect('lista_inmuebles')  
+        else:
+            form = InmuebleForm()
+        return render(request, 'agregar_inmueble.html', {'form': form})
+    else:
+        return redirect('profile.html')  
+    
+@login_required
+def lista_inmuebles(request):
+    inmuebles = Inmueble.objects.filter(propietario=request.user)
+    return render(request, 'lista_inmuebles.html', {'inmuebles': inmuebles})
+
+@login_required
+def editar_inmueble(request, id):
+    inmueble = get_object_or_404(Inmueble, id=id)
+    if request.method == 'POST':
+        form = InmuebleForm(request.POST, instance=inmueble)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_inmuebles')
+    else:
+        form = InmuebleForm(instance=inmueble)
+    return render(request, 'editar_inmueble.html', {'form': form})
+
+def eliminar_inmueble(request, id):
+    inmueble = get_object_or_404(Inmueble, id=id)
+    if request.method == 'POST':
+        inmueble.delete()
+        return redirect('lista_inmuebles')
+
+    return render(request, 'eliminar_inmueble.html', {'inmueble': inmueble})

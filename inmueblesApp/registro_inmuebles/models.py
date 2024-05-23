@@ -43,6 +43,10 @@ class Usuario(AbstractBaseUser):
 
     def __str__(self):
         return f"{self.nombres} {self.apellidos}"
+    
+    @property
+    def is_arrendador(self):
+        return self.tipo_usuario == self.ARRENDADOR
 
 class Region(models.Model):
     nombre = models.CharField(max_length=100)

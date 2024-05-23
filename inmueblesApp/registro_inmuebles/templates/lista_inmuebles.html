@@ -1,0 +1,44 @@
+{% extends 'static_base.html' %}
+{% block 'header' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container mt-5">
+    <h2>Mis Inmuebles</h2>
+    <a href="{% url 'agregar_inmueble' %}" class="btn btn-primary mb-3">Agregar Inmueble</a>
+    {% if inmuebles %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Comuna</th>
+                    <th>Tipo</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inmueble in inmuebles %}
+                <tr>
+                    <td>{{ inmueble.nombre }}</td>
+                    <td>{{ inmueble.direccion }}</td>
+                    <td>{{ inmueble.comuna }}</td>
+                    <td>{{ inmueble.get_tipo_inmueble_display }}</td>
+                    <td>{{ inmueble.precio_mensual_arriendo }}</td>
+                    <td>
+                        <a href="{% url 'editar_inmueble' inmueble.id %}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{% url 'eliminar_inmueble' inmueble.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No tienes inmuebles registrados.</p>
+    {% endif %}
+    <a href="{% url 'profile' %}" class="btn btn-primary">Volver al perfil</a>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'static_base.html' %}
+{% block 'header' %}
+{% endblock %}
+
+{% block 'content' %}
+<div class="container mt-5">
+    <h1 class="mb-4">Agregar Inmueble</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            {{ form.nombre }}
+        </div>
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            {{ form.descripcion }}
+        </div>
+        <div class="mb-3">
+            <label for="m2_construidos" class="form-label">Metros cuadrados construidos</label>
+            {{ form.m2_construidos }}
+        </div>
+        <div class="mb-3">
+            <label for="m2_totales" class="form-label">Metros cuadrados totales</label>
+            {{ form.m2_totales }}
+        </div>
+        <div class="mb-3">
+            <label for="cantidad_estacionamientos" class="form-label">Cantidad de estacionamientos</label>
+            {{ form.cantidad_estacionamientos }}
+        </div>
+        <div class="mb-3">
+            <label for="cantidad_habitaciones" class="form-label">Cantidad de habitaciones</label>
+            {{ form.cantidad_habitaciones }}
+        </div>
+        <div class="mb-3">
+            <label for="cantidad_banos" class="form-label">Cantidad de baños</label>
+            {{ form.cantidad_banos }}
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            {{ form.direccion }}
+        </div>
+        <div class="mb-3">
+            <label for="comuna" class="form-label">Comuna</label>
+            {{ form.comuna }}
+        </div>
+        <div class="mb-3">
+            <label for="tipo_inmueble" class="form-label">Tipo de inmueble</label>
+            {{ form.tipo_inmueble }}
+        </div>
+        <div class="mb-3">
+            <label for="precio_mensual_arriendo" class="form-label">Precio mensual de arriendo</label>
+            {{ form.precio_mensual_arriendo }}
+        </div>
+        <button type="submit" class="btn btn-primary mb-5">Guardar</button>
+    </form>
+</div>
+
+{% endblock %}

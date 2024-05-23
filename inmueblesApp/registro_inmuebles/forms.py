@@ -3,7 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from .models import Usuario
+from .models import Usuario, Inmueble
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -79,3 +79,12 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class InmuebleForm(forms.ModelForm):
+    class Meta:
+        model = Inmueble
+        fields = [
+            'nombre', 'descripcion', 'm2_construidos', 'm2_totales', 
+            'cantidad_estacionamientos', 'cantidad_habitaciones', 'cantidad_banos', 
+            'direccion', 'comuna', 'tipo_inmueble', 'precio_mensual_arriendo'
+        ]

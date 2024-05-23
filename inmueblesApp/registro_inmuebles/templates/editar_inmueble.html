@@ -1,0 +1,17 @@
+{% extends 'static_base.html' %}
+{% block 'header' %}
+{% endblock %}
+
+{% block 'content' %}
+
+<div class="container mt-5">
+    <h2>Editar Inmueble</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="{% url 'lista_inmuebles' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

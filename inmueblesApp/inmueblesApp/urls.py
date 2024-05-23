@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView
-from registro_inmuebles.views import index, about, Welcome, contact, success, registro, perfil_usuario, modificar_usuario
+from registro_inmuebles.views import index, about, Welcome, contact, success, registro, perfil_usuario, modificar_usuario, agregar_inmueble, lista_inmuebles, editar_inmueble, eliminar_inmueble
 from django.urls import include
 
 
@@ -40,6 +40,10 @@ urlpatterns = [
     path('registro/', registro, name='registro'),
     path('profile/', perfil_usuario, name='profile'),
     path('modificar_usuario/', modificar_usuario, name='modificar_usuario'),
+    path('agregar_inmueble/', agregar_inmueble, name='agregar_inmueble'),
+    path('lista_inmuebles/', lista_inmuebles, name='lista_inmuebles'),
+    path('editar_inmueble/<int:id>/', editar_inmueble, name='editar_inmueble'),
+    path('eliminar_inmueble/<int:id>/', eliminar_inmueble, name='eliminar_inmueble'),
 
 
 ]
